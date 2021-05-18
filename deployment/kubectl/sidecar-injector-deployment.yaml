@@ -1,4 +1,4 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: kubernetes-sidecar-injector-deployment
@@ -6,6 +6,9 @@ metadata:
     app: kubernetes-sidecar-injector
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: kubernetes-sidecar-injector
   template:
     metadata:
       labels:

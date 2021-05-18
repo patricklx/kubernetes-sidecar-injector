@@ -62,7 +62,7 @@ echo "creating certs in tmpdir ${TMP_DIR} "
 cat ${BASEDIR}/csr-template.conf | sed -e "s|\${SERVICE}|${SERVICE}|g" -e "s|\${NAMESPACE}|${NAMESPACE}|g" > ${TMP_DIR}/csr.conf
 
 openssl genrsa -out ${TMP_DIR}/server-key.pem 2048
-openssl req -new -key ${TMP_DIR}/server-key.pem -subj "/CN=${SERVICE}.${NAMESPACE}.svc" -out ${TMP_DIR}/server.csr -config ${TMP_DIR}/csr.conf
+openssl req -new -key ${TMP_DIR}/server-key.pem -subj "//CN=system:node:${SERVICE}.${NAMESPACE}.svc\O=system:nodes" -out ${TMP_DIR}/server.csr -config ${TMP_DIR}/csr.conf
 
 # clean-up any previously created CSR for our service. Ignore errors if not present.
 kubectl delete csr ${CSR_NAME} 2>/dev/null || true
